@@ -32,7 +32,7 @@ const registerUser=asyncHandler(async(req,res)=>{
         throw new ApiError(400,"All fills are compalsory")
     }
 
-const existedUser=User.findOne({
+const existedUser= await User.findOne({
     $or:[{username},{email}]
 })
 if(existedUser){
@@ -63,7 +63,7 @@ if(!avatar){
 const user=await User.create({
     fullname,
     avatar:avatar.url,
-    coverImage:coverImage?.url || "",
+    coverImage:coverImage?.url||"",
     email,
     password,
     username:username.toLowerCase()
